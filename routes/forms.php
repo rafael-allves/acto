@@ -1,7 +1,7 @@
 <?php
 
+use App\Livewire\Forms\AnswerForm;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth'], function () {
-
-});
+Route::get('/forms/{form}/answer', AnswerForm::class)
+    ->name('forms.answer');
