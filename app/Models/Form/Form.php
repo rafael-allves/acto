@@ -5,6 +5,7 @@ namespace App\Models\Form;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property User $owner
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Form extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'forms';
 
     protected $fillable = [
