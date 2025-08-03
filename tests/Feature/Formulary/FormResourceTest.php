@@ -27,6 +27,7 @@ class FormResourceTest extends TestCase
                 [
                     'text' => 'Qual sua cor favorita?',
                     'type' => 'open',
+                    'mandatory' => true
                 ],
             ])
             ->call('create')
@@ -35,12 +36,5 @@ class FormResourceTest extends TestCase
         $this->assertDatabaseHas('forms', [
             'title' => 'Meu Formulário',
         ]);
-    }
-
-
-    protected function actingAsUser()
-    {
-        $user = \App\Models\User::factory()->create();
-        $this->actingAs($user);
     }
 }
