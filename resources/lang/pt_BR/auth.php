@@ -13,5 +13,10 @@ return [
     'already_registered' => 'Já registrado?',
     'create_new_user' => 'Criar novo usuário',
     'forgotten_password' => 'Esqueceu sua senha? Sem problemas. Informe seu endereço de e-mail e enviaremos um link para redefinição de senha, permitindo que você escolha uma nova.',
-    'email_password_reset_link' => 'Link de recuperação de senha'
+    'email_password_reset_link' => 'Link de recuperação de senha',
+    'reset_password' => 'Redefinir senha',
+
+    'verify_notice' => 'Obrigado por se registrar! Antes de começar, por favor verifique seu endereço de e-mail clicando no link que acabamos de enviar. Se você não recebeu o e-mail, teremos prazer em enviar outro.',
+    'verification_link_sent' => 'Um novo link de verificação foi enviado para o e-mail fornecido durante o registro.',
+    'resend_verification' => 'Reenviar e-mail de verificação',
 ];

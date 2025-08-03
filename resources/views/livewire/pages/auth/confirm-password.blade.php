@@ -40,7 +40,7 @@ $confirmPassword = function () {
     <form wire:submit="confirmPassword">
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('auth.password')" />
 
             <x-text-input wire:model="password"
                           id="password"
