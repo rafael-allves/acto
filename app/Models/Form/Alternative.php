@@ -31,7 +31,7 @@ class Alternative extends Model
         'is_correct' => 'boolean',
     ];
 
-    protected function getOrdenableParentColumnn(): string
+    protected function getOrdenableParentColumn(): string
     {
         return 'question_id';
     }

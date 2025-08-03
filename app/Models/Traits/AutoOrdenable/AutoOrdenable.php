@@ -19,7 +19,7 @@ trait AutoOrdenable
                 return;
             }
 
-            $relationColumn = $model->getRelationColumn();
+            $relationColumn = $model->getOrdenableParentColumn();
             $relationValue = $model->getAttribute($relationColumn);
 
             $max = $model->newQuery()
@@ -33,7 +33,7 @@ trait AutoOrdenable
         });
     }
 
-    protected abstract function getOrdenableParentColumnn(): string;
+    protected abstract function getOrdenableParentColumn(): string;
 
     protected function getOrderColumn(): string
     {
