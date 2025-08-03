@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+      args:
+        DOCKER_USER_ID: ${DOCKER_USER_ID}
+        DOCKER_GROUP_ID: ${DOCKER_GROUP_ID}
     container_name: laravel_app
     restart: unless-stopped
     working_dir: /var/www
@@ -17,17 +20,17 @@ services:
     image: node:20-alpine
     container_name: vite
     working_dir: /var/www
-    command: sh -c "npm install && npm run dev"
+    user: "${DOCKER_USER_ID}:${DOCKER_GROUP_ID}"
+    command: sh -c "npm install && npx vite"
     volumes:
       - ./:/var/www
+      - ./docker/nginx/ssl:/etc/nginx/ssl
     ports:
       - "5173:5173"
     networks:
       - laravel
     depends_on:
       - app
-
-
   nginx:
     image: nginx:stable-alpine
     container_name: nginx
@@ -63,6 +66,9 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+      args:
+        DOCKER_USER_ID: ${DOCKER_USER_ID}
+        DOCKER_GROUP_ID: ${DOCKER_GROUP_ID}
     container_name: artisan
     working_dir: /var/www
     entrypoint: [ "php", "artisan" ]
