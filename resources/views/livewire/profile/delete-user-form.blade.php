@@ -23,32 +23,32 @@ $deleteUser = function (Logout $logout) {
 <section class="space-y-6">
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Delete Account') }}
+            {{ __('profile.delete_account') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+            {{ __('profile.delete_account_description') }}
         </p>
     </header>
 
     <x-danger-button
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button>
+    >{{ __('profile.delete_account') }}</x-danger-button>
 
     <x-modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable>
         <form wire:submit="deleteUser" class="p-6">
 
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                {{ __('Are you sure you want to delete your account?') }}
+                {{ __('profile.confirm_delete_title') }}
             </h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+                {{ __('profile.confirm_delete_description') }}
             </p>
 
             <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+                <x-input-label for="password" value="{{ __('auth.password') }}" class="sr-only" />
 
                 <x-text-input
                     wire:model="password"
@@ -56,7 +56,7 @@ $deleteUser = function (Logout $logout) {
                     name="password"
                     type="password"
                     class="mt-1 block w-3/4"
-                    placeholder="{{ __('Password') }}"
+                    placeholder="{{ __('auth.password') }}"
                 />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -68,7 +68,7 @@ $deleteUser = function (Logout $logout) {
                 </x-secondary-button>
 
                 <x-danger-button class="ms-3">
-                    {{ __('Delete Account') }}
+                    {{ __('profile.delete_account') }}
                 </x-danger-button>
             </div>
         </form>
