@@ -3,9 +3,12 @@
 namespace App\Models\Form;
 
 use App\Models\Form\Enums\QuestionType;
+use App\Observers\Form\QuestionObserver;
 use App\Scopes\OrderedScope;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -14,8 +17,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $order
  * @property string $text
  * @property string $type
- * @property bool $is_active
+ * @property bool $mandatory
  */
+#[ObservedBy(QuestionObserver::class)]
 class Question extends Model
 {
     use SoftDeletes;
@@ -27,7 +31,7 @@ class Question extends Model
         'order',
         'text',
         'type',
-        'is_active'
+        'mandatory'
     ];
 
     protected static function booted(): void {
@@ -35,11 +39,16 @@ class Question extends Model
     }
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'mandatory' => 'boolean',
         'type' => QuestionType::class,
     ];
 
     public function form(): BelongsTo{
         return $this->belongsTo(Form::class);
+    }
+
+    public function alternatives(): HasMany
+    {
+        return $this->hasMany(Alternative::class);
     }
 }

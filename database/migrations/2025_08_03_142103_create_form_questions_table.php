@@ -18,7 +18,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->integer('order');
+            $table->unsignedInteger('order');
             $table->string('text');
             $table->enum('type', ['multiple_choice', 'open']);
             $table->boolean('mandatory');

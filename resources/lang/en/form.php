@@ -1,0 +1,26 @@
+<?php
+
+return [
+    "singular" => "Formulary",
+    "plural" => 'Formularies',
+    "title" => "Title",
+    "title_placeholder" => "e.g. Satisfaction Survey",
+    "description" => "Description",
+    "description_placeholder" => "e.g. Form sent after service",
+    "is_active" => "Active",
+    "created_at" => "Created At",
+    "status_filter" => "Status",
+    "active" => "Active",
+    "inactive" => "Inactive",
+    "all" => "All",
+    "create" => "Create Form",
+
+    "question" => [
+        'title' => 'Questions',
+        'add' => 'Add question',
+        'text' => 'Question Text',
+        'multiple_choice' => 'Multiple choice',
+        'open' => 'Open',
+        'mandatory' => 'Mandatory',
+    ],
+];

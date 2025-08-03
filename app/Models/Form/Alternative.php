@@ -17,7 +17,7 @@ class Alternative extends Model
 {
     use SoftDeletes;
 
-    protected $table = "question_alternatives";
+    protected $table = "form_question_alternatives";
 
     protected $fillable = [
         'question_id',

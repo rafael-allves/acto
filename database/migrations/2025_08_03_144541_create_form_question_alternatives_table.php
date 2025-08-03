@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alternatives', function (Blueprint $table) {
+        Schema::create('form_question_alternatives', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('question_id')
-                ->constrained('questions')
+                ->constrained('form_questions')
                 ->cascadeOnDelete();
+
+            $table->integer('order');
             $table->string('text');
-            $table->boolean('correct')->default(false);
+            $table->boolean('is_correct')->default(false);
 
             $table->softDeletes();
             $table->timestamps();
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alternatives');
+        Schema::dropIfExists('form_question_alternatives');
     }
 };
