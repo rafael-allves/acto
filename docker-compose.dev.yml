@@ -15,22 +15,6 @@ services:
       - laravel
     depends_on:
       - mysql
-
-  vite:
-    image: node:20-alpine
-    container_name: vite
-    working_dir: /var/www
-    user: "${DOCKER_USER_ID}:${DOCKER_GROUP_ID}"
-    command: sh -c "npm install && npx vite"
-    volumes:
-      - ./:/var/www
-      - ./docker/nginx/ssl:/etc/nginx/ssl
-    ports:
-      - "5173:5173"
-    networks:
-      - laravel
-    depends_on:
-      - app
   nginx:
     image: nginx:stable-alpine
     container_name: nginx
