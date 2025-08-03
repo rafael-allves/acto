@@ -20,6 +20,7 @@ class FormObserver
         $snapshot = json_decode(request()->components[0]['snapshot'], true);
 
         $cleanedSnapshot = FilamentSnapshotUtil::getData($snapshot);
-        if(CompareUtil::deepCompare($cleanedSnapshot, $form->snapShot))return;
+        if(CompareUtil::deepCompare($cleanedSnapshot, $form->currentSnapshot()))return;
+        $form->snapshot($cleanedSnapshot);
     }
 }

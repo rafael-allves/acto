@@ -9,7 +9,7 @@ use Tests\TestCase;
 final class FilamentSnapshotUtilTest extends TestCase
 {
     #[Test]
-    public function it_normalizes_snapshot_data()
+    public function it_normalizes_Snapshot_data()
     {
         $input = [
             'form' => 'example',
@@ -35,5 +35,27 @@ final class FilamentSnapshotUtilTest extends TestCase
         ];
 
         $this->assertEquals($expected, FilamentSnapshotUtil::getData($input));
+    }
+
+    #[Test]
+    public function it_remove_timestamps(){
+        $input = [
+            'created_at' => '2020-01-01 00:00:00',
+            'updated_at' => '2020-01-01 00:00:00',
+        ];
+
+        $this->assertEquals([], FilamentSnapshotUtil::getData($input));
+    }
+
+    #[Test]
+    public function it_keeps_time_stamps(){
+        $input = [
+            'created_at' => '2020-01-01 00:00:00',
+            'updated_at' => '2020-01-01 00:00:00',
+        ];
+        $this->assertEquals([
+            'created_at' => '2020-01-01 00:00:00',
+            'updated_at' => '2020-01-01 00:00:00',
+        ], FilamentSnapshotUtil::getData($input, true));
     }
 }

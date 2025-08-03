@@ -3,6 +3,7 @@
 namespace App\Models\Form;
 
 use App\Models\Traits\AutoOrdenable\AutoOrdenableParent;
+use App\Models\Traits\Snapshotable;
 use App\Models\User;
 use App\Observers\Form\FormObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -27,6 +28,7 @@ class Form extends Model
     use HasFactory;
     use SoftDeletes;
     use AutoOrdenableParent;
+    use Snapshotable;
 
     protected $table = 'forms';
 

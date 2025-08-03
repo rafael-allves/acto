@@ -8,17 +8,28 @@ use Illuminate\Support\Facades\Log;
 final class FilamentSnapshotUtil
 {
     /**
-     * Normaliza um snapshot do Filament removendo chaves de controle (ex: "s")
+     * Normaliza um Snapshot do Filament removendo chaves de controle (ex: "s")
      * e promovendo as chaves "record-*" para o nível superior dos arrays.
      *
-     * @param array $snapShot
+     * @param array $snapshot
+     * @param bool $withTimeStamps
      * @return array Dados normalizados ou null em caso de erro
      */
-    public static function getData(array $snapShot): array
+    public static function getData(array $snapshot, bool $withTimeStamps = false): array
     {
         try {
-            return ArrayUtil::promoteRecordKeys(
-                ArrayUtil::removeArrayKey($snapShot, 's')
+            $data = ArrayUtil::promoteRecordKeys(
+                ArrayUtil::removeArrayKey($snapshot['data']['data'], 's')
+            );
+
+            if ($withTimeStamps) return $data;
+
+            return ArrayUtil::removeArrayKey(
+                ArrayUtil::removeArrayKey(
+                    $data,
+                    'created_at'
+                ),
+                'updated_at'
             );
         } catch (Exception $exception) {
             Log::debug($exception->getMessage());
