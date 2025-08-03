@@ -2,6 +2,7 @@
 
 namespace App\Models\Form;
 
+use App\Models\Traits\AutoOrdenable\AutoOrdenableParent;
 use App\Models\User;
 use App\Observers\Form\FormObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Form extends Model
 {
     use SoftDeletes;
+    use AutoOrdenableParent;
 
     protected $table = 'forms';
 
@@ -32,6 +34,11 @@ class Form extends Model
         'description',
         'is_active'
     ];
+
+    protected function getOrdenableRelation(): string
+    {
+        return 'questions';
+    }
 
     protected $casts = [
         'is_active' => 'boolean',

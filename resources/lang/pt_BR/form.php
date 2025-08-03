@@ -22,5 +22,9 @@ return [
         'multiple_choice' => 'Múltipla escolha',
         'open' => 'Aberta',
         'mandatory' => 'Obrigatorio',
+
+        "alternatives" => [
+            'text' => 'Texto da alternativa',
+        ]
     ],
 ];

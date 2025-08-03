@@ -52,7 +52,7 @@ class FormResource extends Resource
 
             Forms\Components\RichEditor::make('description')
                 ->fileAttachmentsDisk(env('FILESYSTEM_DISK'))
-                ->fileAttachmentsDirectory('attachments')
+                ->fileAttachmentsDirectory('attachments.forms')
                 ->fileAttachmentsVisibility('public')
                 ->label(__('form.description'))
                 ->placeholder(__('form.description_placeholder'))
@@ -66,8 +66,12 @@ class FormResource extends Resource
                 ->label(__('form.question.title'))
                 ->relationship()
                 ->schema([
-                    Forms\Components\TextInput::make('text')
+                    Forms\Components\RichEditor::make('text')
+                        ->fileAttachmentsDisk(env('FILESYSTEM_DISK'))
+                        ->fileAttachmentsDirectory('attachments.forms.questions')
+                        ->fileAttachmentsVisibility('public')
                         ->label(__('form.question.text'))
+                        ->maxLength(65535)
                         ->required(),
 
                     Forms\Components\Select::make('type')
@@ -86,12 +90,17 @@ class FormResource extends Resource
                         ->relationship()
                         ->label('Alternativas')
                         ->schema([
-                            Forms\Components\TextInput::make('text')
-                                ->label('Texto')->required(),
+                            Forms\Components\RichEditor::make('text')
+                                ->fileAttachmentsDisk(env('FILESYSTEM_DISK'))
+                                ->fileAttachmentsDirectory('attachments.forms.questions.alternatives')
+                                ->fileAttachmentsVisibility('public')
+                                ->label(__('form.question.alternatives.text'))
+                                ->maxLength(65535)
+                                ->required(),
                             Forms\Components\Toggle::make('is_correct')
                                 ->label('Correta')->default(false),
                         ])
-                        ->defaultItems(2)
+                        ->columns(1)
                         ->hidden(fn ($get) => $get('type') !== 'multiple_choice')
                         ->collapsible()
                         ->columns(2),

@@ -2,7 +2,7 @@
 
 namespace App\Models\Form;
 
-use App\Scopes\OrderedScope;
+use App\Models\Traits\AutoOrdenable\AutoOrdenable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Alternative extends Model
 {
     use SoftDeletes;
+    use AutoOrdenable;
 
     protected $table = "form_question_alternatives";
 
@@ -30,8 +31,9 @@ class Alternative extends Model
         'is_correct' => 'boolean',
     ];
 
-    protected static function booted(): void {
-        static::addGlobalScope(new OrderedScope);
+    protected function getOrdenableParentColumnn(): string
+    {
+        return 'question_id';
     }
 
     public function question(): BelongsTo{

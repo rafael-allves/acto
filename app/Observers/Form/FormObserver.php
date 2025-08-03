@@ -12,16 +12,4 @@ class FormObserver
             $form->owner_id = auth()->id();
         }
     }
-
-    public function saved(Form $form): void {
-        $form->loadMissing('questions');
-
-        $idsRecebidos = $form->questions->pluck('id')->all();
-        $idsNoBanco = $form->questions()->withoutGlobalScopes()->pluck('id')->all();
-        $idsParaExcluir = array_diff($idsNoBanco, $idsRecebidos);
-
-        if (!empty($idsParaExcluir)) {
-            $form->questions()->whereIn('id', $idsParaExcluir)->delete();
-        }
-    }
 }

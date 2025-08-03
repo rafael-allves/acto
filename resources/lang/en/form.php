@@ -22,5 +22,9 @@ return [
         'multiple_choice' => 'Multiple choice',
         'open' => 'Open',
         'mandatory' => 'Mandatory',
+
+        "alternatives" => [
+            'text' => 'Alternative text',
+        ]
     ],
 ];
