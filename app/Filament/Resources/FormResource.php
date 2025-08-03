@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\FormResource\Pages;
 use App\Models\Form\Form as FormModel;
+use App\Utils\SqlTextLimits;
 use Exception;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -56,7 +57,7 @@ class FormResource extends Resource
                 ->fileAttachmentsVisibility('public')
                 ->label(__('form.description'))
                 ->placeholder(__('form.description_placeholder'))
-                ->maxLength(65535),
+                ->maxLength(SqlTextLimits::TEXT),
 
             Forms\Components\Toggle::make('is_active')
                 ->label(__('form.is_active'))
@@ -71,7 +72,7 @@ class FormResource extends Resource
                         ->fileAttachmentsDirectory('attachments.forms.questions')
                         ->fileAttachmentsVisibility('public')
                         ->label(__('form.question.text'))
-                        ->maxLength(65535)
+                        ->maxLength(SqlTextLimits::TEXT)
                         ->required(),
 
                     Forms\Components\Select::make('type')
@@ -96,15 +97,14 @@ class FormResource extends Resource
                                 ->fileAttachmentsDirectory('attachments.forms.questions.alternatives')
                                 ->fileAttachmentsVisibility('public')
                                 ->label(__('form.question.alternatives.text'))
-                                ->maxLength(65535)
+                                ->maxLength(SqlTextLimits::TEXT)
                                 ->required(),
                             Forms\Components\Toggle::make('is_correct')
                                 ->label('Correta')->default(false),
                         ])
                         ->columns(1)
                         ->hidden(fn ($get) => $get('type') !== 'multiple_choice')
-                        ->collapsible()
-                        ->columns(2),
+                        ->collapsible(),
                 ])
                 ->collapsible()
                 ->addActionLabel(__('form.question.add'))
