@@ -80,6 +80,7 @@ class FormResource extends Resource
                             'multiple_choice' => __('form.question.multiple_choice'),
                             'open' => __('form.question.open'),
                         ])
+                        ->live()
                         ->required(),
 
                     Forms\Components\Toggle::make('mandatory')
