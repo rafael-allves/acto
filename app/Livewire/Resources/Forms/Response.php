@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Livewire\Forms;
+namespace App\Livewire\Resources\Forms;
 
 use App\Models\Form\Enums\QuestionType;
 use App\Models\Form\Form;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
-class AnswerForm extends Component
+class Response extends Component
 {
     public Form $form;
     public array $answers = [];
@@ -20,7 +21,7 @@ class AnswerForm extends Component
         ]);
     }
 
-    public function submit(): void
+    public function submit(): RedirectResponse
     {
         $rules = [];
         $messages = [];
@@ -51,19 +52,16 @@ class AnswerForm extends Component
         )
             ->validate();
 
-        dd($this->answers);
+
+        $snapshotId = $this->form->currentSnapshot()->id;
 
         $this->form->responses()->create([
-
+            'snapshot_id' => $snapshotId,
+            'response' => $this->answers,
+            'user_id' => auth()->id(),
         ]);
 
-        logger()
-            ->info(
-                'Respostas recebidas', $this->answers
-            );
-
-        session()->flash('message', 'Formulário respondido com sucesso!');
-        $this->reset('answers');
+        return redirect(route(''));
     }
 
     public function render(): View

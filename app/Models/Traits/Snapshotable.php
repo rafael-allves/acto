@@ -39,10 +39,12 @@ trait Snapshotable
     /**
      * Retorna o último snapshot registrado, ou null se não houver nenhum.
      *
-     * @return array|null
+     * @return Snapshot
      */
-    public function currentSnapshot(): ?array
+    public function currentSnapshot(): Snapshot
     {
-        return $this->snapshots()->latest()->value('data');
+        return $this->snapshots()
+            ->latest()
+            ->first();
     }
 }

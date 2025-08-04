@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property array $data
+ * @property int $id
  */
 class Snapshot extends Model
 {
