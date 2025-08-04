@@ -57,7 +57,7 @@ class FormResponseResource extends Resource
 
                 Tables\Filters\Filter::make('responses_to_my_forms')
                     ->label(__('form.response.filter.responses_to_my_forms'))
-                    ->query(fn ($query) => $query->whereHas('form', fn ($q) => $q->where('user_id', auth()->id())))
+                    ->query(fn ($query) => $query->whereHas('form', fn ($q) => $q->where('owner_id', auth()->id())))
             ])
             ->actions([
                 Action::make('visualizar')
