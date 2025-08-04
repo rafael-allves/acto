@@ -4,9 +4,9 @@ namespace App\Livewire\Resources\Forms\Response;
 
 use App\Models\Form\Form;
 use App\Models\Form\Response as ResponseModel;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Show extends Component
 {
@@ -16,14 +16,14 @@ class Show extends Component
     public array $userResponse = [];
     public string $presentationTitle = '';
 
-    public function mount(Form $form, ResponseModel $response): RedirectResponse|null
+    public function mount(Form $form, ResponseModel $response): Redirector|null
     {
         $this->form = $form;
         $this->response = $response->load(['user', 'formSnapshot']);
 
         if (!$this->isAllowed()) {
             session()->flash('error', __('Unauthorized'));
-            return redirect()->route('forms.index');
+            return redirect()->route('welcome');
         }
 
         $createdAt = $response->created_at->format('d/m/Y H:i');

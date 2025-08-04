@@ -48,7 +48,7 @@ class FormResource extends Resource
                     table: FormModel::class,
                     column: 'title',
                     ignorable: $record,
-                    modifyRuleUsing: fn (Unique $rule) => $rule->where('owner_id', auth()->id())
+                    modifyRuleUsing: fn(Unique $rule) => $rule->where('owner_id', auth()->id())
                 ),
 
             Forms\Components\RichEditor::make('description')
@@ -103,7 +103,7 @@ class FormResource extends Resource
                                 ->label('Correta')->default(false),
                         ])
                         ->columns(1)
-                        ->hidden(fn ($get) => $get('type') !== 'multiple_choice')
+                        ->hidden(fn($get) => $get('type') !== 'multiple_choice')
                         ->collapsible(),
                 ])
                 ->collapsible()
@@ -122,6 +122,10 @@ class FormResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(
+                FormModel::query()
+                    ->where('owner_id', auth()->id())
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('form.title'))

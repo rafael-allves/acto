@@ -43,6 +43,7 @@ return [
             'presentation_title_user' => "Your answer, ansered at :created_at",
 
             'filter' => [
+                'scope' => 'Scope',
                 'my_responses' => 'My responses',
                 'responses_to_my_forms' => 'Responses to my forms',
             ],

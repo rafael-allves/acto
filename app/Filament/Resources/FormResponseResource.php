@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\FormResponseResource\Pages;
 use App\Models\Form\Response;
+use Exception;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class FormResponseResource extends Resource
 {
@@ -41,6 +43,9 @@ class FormResponseResource extends Resource
             ]);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
@@ -51,13 +56,26 @@ class FormResponseResource extends Resource
                 TextColumn::make('created_at')->label(__('form.response.created_at'))->dateTime('d/m/Y H:i'),
             ])
             ->filters([
-                Tables\Filters\Filter::make('my_responses')
-                    ->label(__('form.response.filter.my_responses'))
-                    ->query(fn ($query) => $query->where('user_id', auth()->id())),
-
-                Tables\Filters\Filter::make('responses_to_my_forms')
-                    ->label(__('form.response.filter.responses_to_my_forms'))
-                    ->query(fn ($query) => $query->whereHas('form', fn ($q) => $q->where('owner_id', auth()->id())))
+                Tables\Filters\SelectFilter::make('response_scope')
+                    ->label(__('form.response.filter.scope'))
+                    ->default('all')
+                    ->options([
+                        'all' => __('All'),
+                        'mine' => __('form.response.filter.my_responses'),
+                        'to_my_forms' => __('form.response.filter.responses_to_my_forms'),
+                    ])
+                    ->query(
+                        fn(array $data, Builder $query): Builder => match ($data['value']) {
+                            'mine' => $query->where('user_id', auth()->id()),
+                            'to_my_forms' => $query
+                                ->whereHas('form', fn($q) => $q->where('owner_id', auth()->id()))
+                                ->where('user_id', '!=', auth()->id()),
+                            default => $query->where(function ($q) {
+                                $q->where('user_id', auth()->id())
+                                    ->orWhereHas('form', fn($q2) => $q2->where('owner_id', auth()->id()));
+                            }),
+                        }
+                    ),
             ])
             ->actions([
                 Action::make('visualizar')

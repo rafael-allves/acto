@@ -30,11 +30,12 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  *     }
  * }
  * ```
- *
  * @mixin Model
  */
 trait Snapshotable
 {
+    protected array $_pendingSnapshot = [];
+
     /**
      * Registra o evento "saving" para gerar e armazenar um snapshot automático.
      *
@@ -48,9 +49,16 @@ trait Snapshotable
         static::saving(function (self $model): void {
             $snapshot = $model->buildSnapshot();
 
-            if (CompareUtil::deepCompare($snapshot, $model->currentSnapshot()->data)) return;
+            if (!CompareUtil::deepCompare($snapshot, $model->currentSnapshot()->data ?? [])) {
+                $model->_pendingSnapshot = $snapshot;
+            }
+        });
 
-            $model->snapshot($snapshot);
+        static::saved(function (self $model): void {
+            if (!empty($model->_pendingSnapshot)) {
+                $model->snapshot($model->_pendingSnapshot);
+                unset($model->_pendingSnapshot);
+            }
         });
     }
 
