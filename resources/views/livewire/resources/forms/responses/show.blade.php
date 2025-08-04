@@ -41,6 +41,7 @@
                                             value="{{ $alternative['id'] }}"
                                             class="mt-1.5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                                             @checked($userResponse[$question['id']] == $alternative['id'])
+                                            disabled
                                         >
                                         <span class="text-black dark:text-white leading-snug">
                                             {!! $alternative['text'] !!}
