@@ -14,6 +14,8 @@ return [
     "inactive" => "Inactive",
     "all" => "All",
     "create" => "Create Form",
+    'search' => 'Search forms...',
+    'not_found' => 'No forms found.',
 
     "question" => [
         'title' => 'Questions',

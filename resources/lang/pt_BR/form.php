@@ -14,6 +14,8 @@ return [
     "inactive" => "Inativo",
     "all" => "Todos",
     "create" => "Novo Formulário",
+    'search' => "Pesquisar formulários...",
+    'not_found' => "Nenhum formulário encontrado.",
 
     "question" => [
         'title' => 'Perguntas',

@@ -11,7 +11,7 @@
             <input
                 type="search"
                 wire:model.live="search"
-                placeholder="{{ __('Pesquisar formulários...') }}"
+                placeholder="{{ __('form.search') }}"
                 class="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             />
         </div>
@@ -35,7 +35,7 @@
                             class="text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400"
                             wire:navigate
                         >
-                            {{ __('Responder') }} →
+                            {{ __('See') }} →
                         </a>
                     </div>
                 </div>
