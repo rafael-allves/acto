@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Resources\Forms;
 
-class Index
+use Livewire\Component;
+
+class Index extends Component
 {
 
 }

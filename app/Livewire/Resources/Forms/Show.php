@@ -4,24 +4,44 @@ namespace App\Livewire\Resources\Forms;
 
 use App\Models\Form\Enums\QuestionType;
 use App\Models\Form\Form;
+use App\Models\Form\Response;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
+use Livewire\Features\SupportRedirects\Redirector;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
-class Response extends Component
+class Show extends Component
 {
     public Form $form;
     public array $answers = [];
 
-    public function mount(Form $form): void
+    public function mount(Form $form): Redirector|null
     {
         $this->form = $form->load([
             'questions.alternatives'
         ]);
+        $loggedUserId = auth()->id();
+        $response = $this->form
+            ->responses()
+            ->firstWhere('user_id', $loggedUserId);
+        if ($response) return $this->redirectForward($response);
+        return null;
     }
 
-    public function submit(): RedirectResponse
+    private function redirectForward(Response $response): Redirector
+    {
+        return redirect()
+            ->route(
+                'forms.responses.show',
+                ['form' => $this->form, 'response' => $response]
+            );
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function submit(): Redirector
     {
         $rules = [];
         $messages = [];
@@ -55,13 +75,15 @@ class Response extends Component
 
         $snapshotId = $this->form->currentSnapshot()->id;
 
-        $this->form->responses()->create([
+        $response = $this->form->responses()->create([
             'snapshot_id' => $snapshotId,
             'response' => $this->answers,
             'user_id' => auth()->id(),
         ]);
 
-        return redirect(route(''));
+        session()
+            ->flash('success', __('Successfully saved'));
+        return $this->redirectForward($response);
     }
 
     public function render(): View

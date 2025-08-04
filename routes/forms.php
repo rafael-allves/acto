@@ -1,9 +1,9 @@
 <?php
 
 use App\Livewire\Resources\Forms\{
-    Response,
-    ViewResponse,
-    Index
+    Index,
+    Show,
+    Response\Show as ResponseShow
 };
 use Illuminate\Support\Facades\Route;
 
@@ -11,11 +11,9 @@ Route::middleware('auth')->prefix('forms')->as('forms.')->group(function () {
     Route::get('/', Index::class)->name('index');
 
     Route::prefix('{form}')->group(function () {
-        Route::get('answer', Response::class)->name('answer');
-        Route::get('answered', Response::class)->name('answered');
-
-        Route::prefix('answers')->as('answers.')->group(function () {
-            Route::get('{answer}', ViewResponse::class)->name('show');
+        Route::get('/', Show::class)->name('show');
+        Route::prefix('responses')->as('responses.')->group(function () {
+            Route::get('{response}', ResponseShow::class)->name('show');
         });
     });
 });

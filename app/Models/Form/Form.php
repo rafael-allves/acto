@@ -3,7 +3,7 @@
 namespace App\Models\Form;
 
 use App\Models\Traits\AutoOrdenable\AutoOrdenableParent;
-use App\Models\Traits\Snapshotable;
+use App\Models\Traits\Snapshotable\Snapshotable;
 use App\Models\User;
 use App\Observers\Form\FormObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -44,6 +44,23 @@ class Form extends Model
         return 'questions';
     }
 
+    protected function buildSnapshot(): array
+    {
+        $snapshot = $this->loadMissing(['questions.alternatives'])
+            ->toArray();
+
+        $snapshot['questions'] = collect($snapshot['questions'] ?? [])
+            ->values()
+            ->map(function ($question) {
+                if (isset($question['alternatives']))
+                    $question['alternatives'] = collect($question['alternatives'])->values()->all();
+
+                return $question;
+            })->all();
+
+        return $snapshot;
+    }
+
     protected $casts = [
         'is_active' => 'boolean',
     ];
@@ -53,11 +70,13 @@ class Form extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function questions(): HasMany {
+    public function questions(): HasMany
+    {
         return $this->hasMany(Question::class, 'form_id');
     }
 
-    public function responses(): HasMany {
+    public function responses(): HasMany
+    {
         return $this->hasMany(Response::class, 'form_id');
     }
 }

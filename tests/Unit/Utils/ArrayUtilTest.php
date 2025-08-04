@@ -26,27 +26,4 @@ final class ArrayUtilTest extends TestCase
 
         $this->assertEquals($expected, ArrayUtil::removeArrayKey($input, 's'));
     }
-
-    #[Test] public function it_promotes_record_keys()
-    {
-        $input = [
-            'questions' => [
-                ['record-1' => ['id' => 1]],
-                ['record-2' => ['id' => 2]],
-                ['record-3' => ['id' => 3]],
-            ],
-            'form' => 'example'
-        ];
-
-        $expected = [
-            'questions' => [
-                ['id' => 1],
-                ['id' => 2],
-                ['id' => 3],
-            ],
-            'form' => 'example'
-        ];
-
-        $this->assertEquals($expected, ArrayUtil::promoteRecordKeys($input));
-    }
 }

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Form $form
  * @property int $form_id
  * @property int $user_id
- * @property Snapshot $snapshot
+ * @property Snapshot $formSnapshot
  * @property array $response
  */
 class Response extends Model
@@ -40,7 +40,7 @@ class Response extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function snapshot(): BelongsTo{
+    public function formSnapshot(): BelongsTo{
         return $this->belongsTo(Snapshot::class, 'snapshot_id');
     }
 }
