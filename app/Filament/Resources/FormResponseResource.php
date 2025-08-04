@@ -45,20 +45,23 @@ class FormResponseResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label(__('forms.responses.id'))->sortable(),
-                TextColumn::make('user.name')->label(__('forms.responses.user_name'))->sortable()->searchable(),
-                TextColumn::make('form.title')->label(__('forms.responses.form_title'))->sortable()->searchable(),
-                TextColumn::make('created_at')->label(__('forms.responses.created_at'))->dateTime(),
+                TextColumn::make('id')->label(__('form.response.id'))->sortable(),
+                TextColumn::make('user.name')->label(__('form.response.user_name'))->sortable()->searchable(),
+                TextColumn::make('form.title')->label(__('form.response.form_title'))->sortable()->searchable(),
+                TextColumn::make('created_at')->label(__('form.response.created_at'))->dateTime('d/m/Y H:i'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Action::make('visualizar')
-                    ->label(__('forms.responses.view'))
+                    ->label(__('form.response.view'))
                     ->icon('heroicon-o-eye')
                     ->color('info')
-                    ->url(fn(Response $record): string => route('forms.view-response', $record))
+                    ->url(fn(Response $record): string => route(
+                        'forms.responses.show',
+                        ['form' => $record->form_id, 'response' => $record]
+                    ))
                     ->openUrlInNewTab(),
             ])
             ->headerActions([

@@ -4,8 +4,6 @@ namespace App\Livewire\Resources\Forms\Response;
 
 use App\Models\Form\Form;
 use App\Models\Form\Response as ResponseModel;
-use App\Utils\ArrayUtil;
-use App\Utils\FilamentSnapshotUtil;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -15,6 +13,7 @@ class Show extends Component
     private Form $form;
     private ResponseModel $response;
     public array $formSnapshot = [];
+    public array $userResponse = [];
 
     public function mount(Form $form, ResponseModel $response): RedirectResponse|null
     {
@@ -27,8 +26,7 @@ class Show extends Component
         }
 
         $this->formSnapshot = $this->response->formSnapshot->data;
-
-        dd($this->formSnapshot);
+        $this->userResponse = $this->response->response;
 
         return null;
     }
