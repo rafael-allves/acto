@@ -51,7 +51,13 @@ class FormResponseResource extends Resource
                 TextColumn::make('created_at')->label(__('form.response.created_at'))->dateTime('d/m/Y H:i'),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('my_responses')
+                    ->label(__('form.response.filter.my_responses'))
+                    ->query(fn ($query) => $query->where('user_id', auth()->id())),
+
+                Tables\Filters\Filter::make('responses_to_my_forms')
+                    ->label(__('form.response.filter.responses_to_my_forms'))
+                    ->query(fn ($query) => $query->whereHas('form', fn ($q) => $q->where('user_id', auth()->id())))
             ])
             ->actions([
                 Action::make('visualizar')

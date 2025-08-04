@@ -40,6 +40,11 @@ return [
         'created_at' => 'Respondido em',
         'view' => 'Ver resposta',
         'presentation_title_owner' => "Seu formulário, respondido por: :username em :created_at",
-        'presentation_title_user' => "Sua resposta, respondido em :created_at"
+        'presentation_title_user' => "Sua resposta, respondido em :created_at",
+
+        'filter' => [
+            'my_responses' => 'Suas Respostas',
+            'responses_to_my_forms' => 'Respostas aos Seus Formulários',
+        ],
     ]
 ];

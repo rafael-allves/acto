@@ -41,6 +41,11 @@ return [
 
             'presentation_title_owner' => "Your form, answered by: :username at :created_at",
             'presentation_title_user' => "Your answer, ansered at :created_at",
+
+            'filter' => [
+                'my_responses' => 'My responses',
+                'responses_to_my_forms' => 'Responses to my forms',
+            ],
         ]
     ],
 ];
