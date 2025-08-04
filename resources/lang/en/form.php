@@ -25,6 +25,11 @@ return [
 
         "alternatives" => [
             'text' => 'Alternative text',
+        ],
+
+        "response" => [
+            'plural' => 'Responses',
+            'singular' => 'Response',
         ]
     ],
 ];

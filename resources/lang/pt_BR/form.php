@@ -27,4 +27,15 @@ return [
             'text' => 'Texto da alternativa',
         ]
     ],
+
+    "response" => [
+        'plural' => 'Respostas',
+        'singular' => 'Resposta',
+
+        'id' => 'ID',
+        'user_name' => 'Usuário',
+        'form_title' => 'Formulário',
+        'created_at' => 'Respondido em',
+        'view' => 'Ver resposta',
+    ]
 ];
