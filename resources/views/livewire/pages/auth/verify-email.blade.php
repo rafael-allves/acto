@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Session;
 
 use function Livewire\Volt\layout;
 
-layout('layouts.guest');
+layout('components.layouts.guest');
 
 $sendVerification = function () {
     if (Auth::user()->hasVerifiedEmail()) {
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('welcome', absolute: false), navigate: true);
 
         return;
     }

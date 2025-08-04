@@ -10,7 +10,7 @@ use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;
 
-layout('layouts.guest');
+layout('components.layouts.guest');
 
 state([
     'name' => '',
@@ -34,7 +34,7 @@ $register = function () {
 
     Auth::login($user);
 
-    $this->redirect(route('dashboard', absolute: false), navigate: true);
+    $this->redirect(route('welcome', absolute: false), navigate: true);
 };
 
 ?>

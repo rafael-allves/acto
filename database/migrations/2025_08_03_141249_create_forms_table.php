@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('forms', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('form_id')
-                ->constrained('forms')
+            $table->foreignId('owner_id')
+                ->constrained('users')
                 ->cascadeOnDelete();
 
-            $table->string('text');
-            $table->enum('type', ['multiple_choice']);
-            $table->boolean('mandatory');
-            $table->float('peso')->default(1.0);
+            $table->string('title');
+            $table->text('description');
+            $table->boolean('is_active')
+                ->default(true);
 
             $table->softDeletes();
             $table->timestamps();
         });
-
     }
 
     /**
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('formulary');
     }
 };

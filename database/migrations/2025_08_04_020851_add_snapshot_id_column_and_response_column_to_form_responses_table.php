@@ -11,18 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forms', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('user_id')
+        Schema::table('form_responses', function (Blueprint $table) {
+            $table->foreignId('snapshot_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->boolean('active')->default(true);
-
-            $table->softDeletes();
-            $table->timestamps();
+            $table->json('response');
         });
     }
 
@@ -31,6 +24,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formularies');
+        Schema::table('form_responses', function (Blueprint $table) {
+            $table->dropForeign(['snapshot_id']);
+            $table->dropColumn('snapshot_id');
+            $table->dropColumn('response');
+        });
     }
 };
