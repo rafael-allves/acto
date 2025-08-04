@@ -4,6 +4,7 @@ namespace App\Models\Form;
 
 use App\Models\Snapshot;
 use App\Models\User;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $user_id
  * @property Snapshot $formSnapshot
  * @property array $response
+ * @property DateTime $created_at
  */
 class Response extends Model
 {
@@ -27,7 +29,8 @@ class Response extends Model
     ];
 
     protected $casts = [
-        'response' => 'array'
+        'response' => 'array',
+        'created_at' => 'datetime',
     ];
 
     public function form(): BelongsTo

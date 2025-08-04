@@ -88,6 +88,6 @@ class Show extends Component
 
     public function render(): View
     {
-        return view('livewire.forms.answer-form');
+        return view('livewire.resources.forms.show');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Resources\Forms;
 
 use App\Models\Form\Form;
+use App\Utils\SqlUtil;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
@@ -14,13 +15,6 @@ class Index extends Component
 
     public string $search = '';
 
-    protected $queryString = ['search'];
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
     public function render(): View
     {
         $forms = Form::query()
@@ -29,11 +23,10 @@ class Index extends Component
             $query->where('title', 'like', '%' . $this->search . '%')
             )
             ->latest()
-            ->paginate(20);
+            ->paginate(SqlUtil::PAGINATION);
 
-        return view('welcome', [
+        return view('livewire.resources.forms.index', [
             'forms' => $forms,
         ]);
     }
 }
-

@@ -37,8 +37,8 @@ return [
             'created_at' => 'Answered at',
             'view' => 'See answer',
 
-            'presentation_title_owner' => "Your form, answered by: :username",
-            'presentation_title_user' => "Your answer",
+            'presentation_title_owner' => "Your form, answered by: :username at :created_at",
+            'presentation_title_user' => "Your answer, ansered at :created_at",
         ]
     ],
 ];

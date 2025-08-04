@@ -26,11 +26,13 @@ class Show extends Component
             return redirect()->route('forms.index');
         }
 
+        $createdAt = $response->created_at->format('d/m/Y H:i');
+
         $this->formSnapshot = $this->response->formSnapshot->data;
         $this->userResponse = $this->response->response;
         $this->presentationTitle = $this->form->owner_id === auth()->id()
-            ? __('form.response.presentation_title_owner', ['username' => $response->user->name])
-            : __('form.response.presentation_title_user');
+            ? __('form.response.presentation_title_owner', ['username' => $response->user->name, 'created_at' => $createdAt])
+            : __('form.response.presentation_title_user', ['created_at' => $createdAt]);
 
         return null;
     }
@@ -45,6 +47,6 @@ class Show extends Component
 
     public function render(): View
     {
-        return view('livewire.forms.answers.show');
+        return view('livewire.resources.forms.responses.show');
     }
 }
