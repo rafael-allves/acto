@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use function Livewire\Volt\form;
 use function Livewire\Volt\layout;
 
-layout('layouts.guest');
+layout('components.layouts.guest');
 
 form(LoginForm::class);
 
@@ -17,7 +17,7 @@ $login = function () {
 
     Session::regenerate();
 
-    $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+    $this->redirectIntended(default: route('welcome', absolute: false), navigate: true);
 };
 
 ?>

@@ -7,7 +7,7 @@ use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;
 
-layout('layouts.guest');
+layout('components.layouts.guest');
 
 state(['password' => '']);
 
@@ -27,7 +27,7 @@ $confirmPassword = function () {
 
     session(['auth.password_confirmed_at' => time()]);
 
-    $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+    $this->redirectIntended(default: route('welcome', absolute: false), navigate: true);
 };
 
 ?>
