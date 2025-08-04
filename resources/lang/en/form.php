@@ -30,6 +30,15 @@ return [
         "response" => [
             'plural' => 'Responses',
             'singular' => 'Response',
+
+            'id' => 'ID',
+            'user_name' => 'User',
+            'form_title' => 'Formulário',
+            'created_at' => 'Answered at',
+            'view' => 'See answer',
+
+            'presentation_title_owner' => "Your form, answered by: :username",
+            'presentation_title_user' => "Your answer",
         ]
     ],
 ];

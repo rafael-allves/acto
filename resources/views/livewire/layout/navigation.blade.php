@@ -25,7 +25,7 @@ $logout = function (Logout $logout) {
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')" wire:navigate>
-                        {{ __('Dashboard') }}
+                        {{ __('form.plural') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -48,6 +48,10 @@ $logout = function (Logout $logout) {
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('profile.title') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('filament.app.pages.dashboard')" target="_blank">
+                            {{ __('Dashboard') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -76,7 +80,7 @@ $logout = function (Logout $logout) {
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')" wire:navigate>
-                {{ __('Dashboard') }}
+                {{ __('form.plural') }}
             </x-responsive-nav-link>
         </div>
 
@@ -90,6 +94,10 @@ $logout = function (Logout $logout) {
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('filament.app.pages.dashboard')" target="_blank">
+                    {{ __('Dashboard') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

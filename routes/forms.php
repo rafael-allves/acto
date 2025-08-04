@@ -8,8 +8,6 @@ use App\Livewire\Resources\Forms\{
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->prefix('forms')->as('forms.')->group(function () {
-    Route::get('/', Index::class)->name('index');
-
     Route::prefix('{form}')->group(function () {
         Route::get('/', Show::class)->name('show');
         Route::prefix('responses')->as('responses.')->group(function () {

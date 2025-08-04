@@ -14,6 +14,7 @@ class Show extends Component
     private ResponseModel $response;
     public array $formSnapshot = [];
     public array $userResponse = [];
+    public string $presentationTitle = '';
 
     public function mount(Form $form, ResponseModel $response): RedirectResponse|null
     {
@@ -27,6 +28,9 @@ class Show extends Component
 
         $this->formSnapshot = $this->response->formSnapshot->data;
         $this->userResponse = $this->response->response;
+        $this->presentationTitle = $this->form->owner_id === auth()->id()
+            ? __('form.response.presentation_title_owner', ['username' => $response->user->name])
+            : __('form.response.presentation_title_user');
 
         return null;
     }
