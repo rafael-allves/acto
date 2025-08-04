@@ -50,7 +50,7 @@ $logout = function (Logout $logout) {
                             {{ __('profile.title') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('filament.app.pages.dashboard')" target="_blank">
+                        <x-dropdown-link :href="route('filament.app.resources.forms.index')" target="_blank">
                             {{ __('Dashboard') }}
                         </x-dropdown-link>
 
@@ -96,7 +96,7 @@ $logout = function (Logout $logout) {
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('filament.app.pages.dashboard')" target="_blank">
+                <x-responsive-nav-link :href="route('filament.app.resources.forms.index')" target="_blank">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
 
