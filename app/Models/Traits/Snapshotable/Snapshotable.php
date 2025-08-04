@@ -34,7 +34,9 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 trait Snapshotable
 {
-    protected array $_pendingSnapshot = [];
+    private array $_pendingSnapshot = [];
+    private bool $_isCreating = false;
+
 
     /**
      * Registra o evento "saving" para gerar e armazenar um snapshot automático.
@@ -47,19 +49,43 @@ trait Snapshotable
     protected static function bootSnapshotable(): void
     {
         static::saving(function (self $model): void {
-            $snapshot = $model->buildSnapshot();
-
-            if (!CompareUtil::deepCompare($snapshot, $model->currentSnapshot()->data ?? [])) {
-                $model->_pendingSnapshot = $snapshot;
+            $model->_isCreating = !$model->getKey();
+            if (!$model->_isCreating) {
+                $model->saveSnapshot();
             }
         });
 
         static::saved(function (self $model): void {
-            if (!empty($model->_pendingSnapshot)) {
-                $model->snapshot($model->_pendingSnapshot);
-                unset($model->_pendingSnapshot);
+            if ($model->_isCreating) {
+                $model->_isCreating = false;
+
+                app()->terminating(function () use ($model) {
+                    $model->saveSnapshot();
+                    $model->flushSnapshot();
+                });
+
+                return;
             }
+
+            $model->flushSnapshot();
         });
+    }
+
+    private function saveSnapshot(): void
+    {
+        $snapshot = $this->buildSnapshot();
+
+        if (!CompareUtil::deepCompare($snapshot, $this->currentSnapshot()?->data ?? [])) {
+            $this->_pendingSnapshot = $snapshot;
+        }
+    }
+
+    private function flushSnapshot(): void
+    {
+        if (!empty($this->_pendingSnapshot)) {
+            $this->snapshot($this->_pendingSnapshot);
+            unset($this->_pendingSnapshot);
+        }
     }
 
     /**
