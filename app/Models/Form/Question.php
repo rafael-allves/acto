@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $text
  * @property string $type
  * @property bool $mandatory
+ * @method map(\Closure $param)
  */
 class Question extends Model
 {

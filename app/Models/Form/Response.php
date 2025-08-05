@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Snapshot $formSnapshot
  * @property array $response
  * @property DateTime $created_at
+ * @property int $id
  */
 class Response extends Model
 {

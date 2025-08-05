@@ -1,7 +1,8 @@
 <?php
 
+use App\Filament\Pages\SubmitForm;
+use App\Filament\Pages\ViewFormResponse;
 use App\Livewire\Resources\Forms\{
-    Index,
     Show,
     Response\Show as ResponseShow
 };
@@ -14,4 +15,10 @@ Route::middleware('auth')->prefix('forms')->as('forms.')->group(function () {
             Route::get('{response}', ResponseShow::class)->name('show');
         });
     });
+});
+
+
+Route::middleware(['web', 'auth'])->prefix('filament/app/forms')->as('filament.app.pages.')->group(function () {
+    Route::get('{form}/submit', SubmitForm::class)->name('submit-form');
+    Route::get('{form}/responses/{response}', ViewFormResponse::class)->name('view-form-response');
 });

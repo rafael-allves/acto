@@ -38,6 +38,15 @@
                             {{ __('See') }} →
                         </a>
                     </div>
+                    <div class="mt-4 text-right">
+                        <a
+                            href="{{ route('filament.app.pages.submit-form', ['form' => $form->id]) }}"
+                            class="text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+                            target="_blank"
+                        >
+                            {{ __('See') }} FILAMENT →
+                        </a>
+                    </div>
                 </div>
             @empty
                 <div class="col-span-full text-center text-gray-500 dark:text-gray-300">
